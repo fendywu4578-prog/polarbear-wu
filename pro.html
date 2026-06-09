@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLAR BEAR - Flagship Pro Series Customization Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-red: #DC2626;
+            --accent-gray: #475569;
+            --accent-cyan: #00D8FF;
+            --accent-blue: #2563EB;
+            --accent-gold: #F59E0B;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --grid-line: rgba(255, 255, 255, 0.05);
+            --current-accent: var(--accent-red);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container & Card */
+        .wrapper {
+            max-width: 1200px;
+            width: 100%;
+            background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Honeycomb Background Watermark (Pure CSS) */
+        .wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background-image: radial-gradient(circle at center, transparent 30%, var(--bg-color) 80%),
+                              url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath fill='%23DC2626' fill-opacity='0.02' d='M56 49l-28-16.2-28 16.2v32.3l28 16.2 28-16.2zM28 32.8l28-16.2-28-16.2-28 16.2z'/%3E%3C/svg%3E");
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Inner Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            padding: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 950px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+        }
+
+        /* Brand Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand span {
+            color: var(--current-accent);
+            transition: color 0.3s ease;
+        }
+
+        .tagline {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Content Column */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-area {
+            min-height: 120px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .desc-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            min-height: 80px;
+        }
+
+        .desc-text span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Steps Block */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 15px;
+            min-height: 280px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(5px);
+        }
+
+        .step-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--current-accent);
+            background: rgba(255, 255, 255, 0.03);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .step-info p {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+
+        /* Console Column (Right) */
+        .visual-display {
+            background: rgba(255, 255, 255, 0.01);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        @media (max-width: 950px) {
+            .visual-display {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                padding-left: 0;
+                padding-top: 40px;
+            }
+        }
+
+        /* Blueprint Card Frame */
+        .blueprint-card {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 30px 25px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s ease;
+        }
+
+        .blueprint-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--current-accent);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .blueprint-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--current-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--current-accent);
+            transition: all 0.3s ease;
+        }
+
+        /* Interactive Tabs Bar */
+        .blueprint-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .blueprint-item {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px 2px;
+            text-align: center;
+            font-size: 9.5px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .blueprint-item svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--text-secondary);
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        /* Active Tab States */
+        .blueprint-item.active {
+            border-color: var(--current-accent);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+        }
+
+        .blueprint-item.active svg {
+            stroke: var(--current-accent);
+            filter: drop-shadow(0 0 6px var(--current-accent));
+        }
+
+        /* Tech Spec Area inside Console Card */
+        .tech-spec-console {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .tech-spec-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 6px 0;
+        }
+
+        .tech-spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .tech-spec-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .tech-spec-val {
+            color: var(--text-primary);
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* Call To Action Button */
+        .cta-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--current-accent) 0%, #000000 200%);
+            color: #0b0f19;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-decoration: none;
+            padding: 16px 25px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px -5px rgba(0, 216, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .cta-btn span {
+            color: #0b0f19;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -5px var(--current-accent);
+        }
+
+        .cta-note {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="container">
+            
+            <!-- Main Content Column -->
+            <div class="main-content">
+                <div class="header">
+                    <div class="brand">POLAR <span id="brand-span">BEAR</span></div>
+                    <div class="tagline">G e e k &nbsp; I n d u s t r i a l</div>
+                </div>
+                
+                <div class="title-area">
+                    <h1 class="title" id="main-title">Flagship Pro Series Workspace Configurator</h1>
+                </div>
+                
+                <p class="desc-text" id="main-desc">
+                    Welcome to the <span>POLAR BEAR</span> Pro Series systems architect. Select any configuration in the console board on the right to dynamically explore flagship technical specifications, and custom layouts.
+                </p>
+                
+                <!-- Steps Area -->
+                <div class="steps" id="steps-area">
+                    <div class="step-item">
+                        <div class="step-num">01</div>
+                        <div class="step-info">
+                            <h4>Select Pro Series Model</h4>
+                            <p>Click on Pro-001, Pro-002, Pro-005, or Pro-007 on the right console board.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">02</div>
+                        <div class="step-info">
+                            <h4>Inspect Technical Specs</h4>
+                            <p>Review real-time industrial specifications, configurations, and pump details.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">03</div>
+                        <div class="step-info">
+                            <h4>Submit Custom Design Query</h4>
+                            <p>Click "Contact Supplier" to get an一对一 tailored wash bay layout rendering & quote.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Console Column (Right) -->
+            <div class="visual-display">
+                <div class="blueprint-card" id="console-card">
+                    <div class="blueprint-title" id="console-title">Select Component Line</div>
+                    
+                    <!-- 4 Interactive Tabs -->
+                    <div class="blueprint-grid">
+                        <!-- PB-Pro-001 -->
+                        <div class="blueprint-item active" onclick="switchTab('pro001')" id="tab-pro001">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 3v18M15 3v18" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Pro-001
+                        </div>
+                        <!-- PB-Pro-002 -->
+                        <div class="blueprint-item" onclick="switchTab('pro002')" id="tab-pro002">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 9h18M9 9v12" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Pro-002
+                        </div>
+                        <!-- PB-Pro-005 -->
+                        <div class="blueprint-item" onclick="switchTab('pro005')" id="tab-pro005">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 9h18M3 15h18M9 9v12M15 9v12" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Pro-005
+                        </div>
+                        <!-- PB-Pro-007 -->
+                        <div class="blueprint-item" onclick="switchTab('pro007')" id="tab-pro007">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <polyline points="12 6 12 12 16 14" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Pro-007
+                        </div>
+                    </div>
+                    
+                    <!-- Technical Spec Display Box -->
+                    <div class="tech-spec-console" id="spec-display">
+                        <div class="tech-spec-row">
+                            <div class="tech-spec-label">Select a tab above</div>
+                            <div class="tech-spec-val">to load spec card...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call To Action -->
+                    <a href="#" class="cta-btn" id="cta-btn-main">
+                        <span id="cta-btn-text">Contact Supplier</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <div class="cta-note" id="cta-note-text">Get Your Free 3D Layout Rendering Today</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Tab Swapping Interactivity Script -->
+    <script>
+        const data = {
+            pro001: {
+                color: '#DC2626', // Crimson Red
+                title: 'PB-PRO-001 WALL-MOUNTED HIGH-PRESSURE CORE',
+                desc: 'Premium compact wall-mounted high-pressure wash cabinet. Encloses a heavy-duty induction pump, copper wire cores, and built-in thermal guards inside an anti-corrosive lockable steel frame.',
+                steps: [
+                    ['01', 'Space-Saving Wall Mount', 'Clear up precious detailing bay floor space by suspending the high-pressure wash core securely on the wall.'],
+                    ['02', 'Brushless Induction Power', 'High-torque copper core motor ensures stable, whisper-quiet performance with double the lifespan of standard pumps.'],
+                    ['03', 'Direct Water Inlet Hookup', 'Quick-release couplings connect directly to municipal water lines or professional soft water filters.']
+                ],
+                specs: [
+                    ['Working Pressure', '120 Bar (12 MPa)'],
+                    ['Maximum Water Flow', '10 L/min (600 L/H)'],
+                    ['Motor Input Power', '2.6 kW Heavy-Duty Induction'],
+                    ['Inlet Connection', '1/2" Quick Coupling Joint']
+                ],
+                ctaNote: 'Get Your Custom PB-Pro-001 Configuration Quote'
+            },
+            pro002: {
+                color: '#38BDF8', // Ice Steel Blue
+                title: 'PB-PRO-002 SMART WALL-MOUNTED DUAL-PRESSURE',
+                desc: 'Wall-mounted dual-mode high-pressure station, delivering both high-pressure water rinse and active thick foam pre-wash through a single, intelligent central switch panel.',
+                steps: [
+                    ['01', 'Dual-Mode Rinse & Foam', 'Easily switch between pure water rinse and rich, clinging snow foam with a single rotary dial.'],
+                    ['02', 'Ceramic Plunger Manifold', 'High-grade solid brass manifold paired with ceramic-coated pistons, delivering extreme chemical resistance.'],
+                    ['03', 'Built-in Active Safety Guard', 'Automatic pressure shut-off (TSS) stops the motor when the spray gun trigger is released, saving power.']
+                ],
+                specs: [
+                    ['Maximum System Pressure', '165 Bar (16.5 MPa)'],
+                    ['Dual Operating Lines', 'High-Pressure Water + Active Foam'],
+                    ['Motor Input Power', '3.0 kW Professional Induction'],
+                    ['Valves & Couplings', 'Heavy-Duty Stainless Steel & Brass']
+                ],
+                ctaNote: 'Customize Your PB-Pro-002 Dual Line Station'
+            },
+            pro005: {
+                color: '#F59E0B', // Sunset Gold
+                title: 'PB-PRO-005 LUXURY GARAGE CABINET SYSTEM',
+                desc: 'Our premier modular cabinet washing system. Seamlessly encloses the high-pressure wash core, multi-stage water filtration, and hose reels inside premium powder-coated structural steel cabinets.',
+                steps: [
+                    ['01', 'All-in-One Cabinet Enclosure', 'Hides high-pressure pumps, inlet filtration, and chemical tanks inside luxury wrinkle-painted workshop cabinets.'],
+                    ['02', 'Multi-Stage Soft Water Filters', 'Integrated active anti-scale and deionization (DI) water filters deliver spot-free drying wash results.'],
+                    ['03', 'Spring-Driven Hose Reels', 'Natively houses auto-retractable water and foam reels inside designated cabinet bays.']
+                ],
+                specs: [
+                    ['Integrated System Core', 'Heavy-Duty Low-Speed 1450 RPM Pump'],
+                    ['Inlet Filtration Stages', 'Dual Anti-Scale & Deionization (DI)'],
+                    ['Cabinet Shell Material', 'Wrinkle-Painted Multi-Unit Steel'],
+                    ['Modular Compatibility', 'Pairs with Detailing Pegboards & Shelves']
+                ],
+                ctaNote: 'Custom-Build Your Luxury Cabinet Wash Station'
+            },
+            pro007: {
+                color: '#10B981', // Emerald Green
+                title: 'PB-PRO-007 MOBILE DETAILING ENTERPRISE RIG',
+                desc: 'The ultimate "Business-in-a-Box" mobile detailing system. A turnkey, pre-engineered enterprise rig designed to launch a highly profitable mobile detailing business from a van, trailer, or truck.',
+                steps: [
+                    ['01', 'Turnkey Mobile Business', 'Includes cordless pressure washing, a modular water tank system, and high-performance interior extraction.'],
+                    ['02', '3-Tier Sizing Configurations', 'Choose between Lite (Lithium Portable), Starter (1.8kW Solar-Hybrid Setup), or Pro (Full-Van Industrial Conversion).'],
+                    ['03', 'On-the-Go Autonomy', 'High-capacity water tanks, silent generator mounts, and lithium batteries allow complete detailing operations anywhere.']
+                ],
+                specs: [
+                    ['Configuration Options', 'Lite (DIY) / Starter (Hybrid) / Pro (Enterprise Van)'],
+                    ['Integrated Water Tank', '100L / 200L / 300L UV-Stabilized Poly'],
+                    ['System Power Options', 'High-Capacity Lithium Ion & Generator Mount'],
+                    ['Target Applications', 'Mobile Detailing, Fleet Washing, Mobile Valet']
+                ],
+                ctaNote: 'Select Your PB-Pro-007 Turnkey Package'
+            }
+        };
+
+        function switchTab(tabKey) {
+            const tabData = data[tabKey];
+            if (!tabData) return;
+
+            // Update CSS Variables dynamically
+            document.documentElement.style.setProperty('--current-accent', tabData.color);
+
+            // Update Tab Active Classes
+            const tabs = ['pro001', 'pro002', 'pro005', 'pro007'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (t === tabKey) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+
+            // Update Header & Main Text
+            document.getElementById('brand-span').style.color = tabData.color;
+            document.getElementById('main-title').innerText = tabData.title;
+            document.getElementById('main-desc').innerHTML = tabData.desc;
+
+            // Update Steps Block
+            const stepsArea = document.getElementById('steps-area');
+            stepsArea.innerHTML = '';
+            tabData.steps.forEach(step => {
+                const item = document.createElement('div');
+                item.className = 'step-item';
+                item.innerHTML = `
+                    <div class="step-num" style="color: ${tabData.color}; border-color: ${tabData.color}40; background: ${tabData.color}10">${step[0]}</div>
+                    <div style="margin-left: 10px;">
+                        <h4>${step[1]}</h4>
+                        <p>${step[2]}</p>
+                    </div>
+                `;
+                stepsArea.appendChild(item);
+            });
+
+            // Update Tech Spec Box
+            const specDisplay = document.getElementById('spec-display');
+            specDisplay.innerHTML = '';
+            tabData.specs.forEach(spec => {
+                const row = document.createElement('div');
+                row.className = 'tech-spec-row';
+                row.innerHTML = `
+                    <div class="tech-spec-label">${spec[0]}</div>
+                    <div class="tech-spec-val">${spec[1]}</div>
+                `;
+                specDisplay.appendChild(row);
+            });
+
+            // Update CTA Buttons & Notes
+            document.getElementById('console-title').style.color = tabData.color;
+            document.getElementById('cta-btn-main').style.background = `linear-gradient(135deg, ${tabData.color} 0%, #000000 200%)`;
+            document.getElementById('cta-note-text').innerText = tabData.ctaNote;
+        }
+
+        // Initialize with pro001
+        window.onload = () => switchTab('pro001');
+    </script>
+</body>
+</html>
